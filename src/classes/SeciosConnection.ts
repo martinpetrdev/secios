@@ -13,8 +13,6 @@ export class SeciosConnection extends SeciosEventEmitter {
     const abortController = new AbortController();
     this._abortController = abortController;
 
-    let offset = 0;
-
     const parser = createParser({
       onEvent: (event) => {
         this.emit(event.event ?? "event", {
@@ -25,21 +23,41 @@ export class SeciosConnection extends SeciosEventEmitter {
       },
     });
 
-    await axiosInstance.get(url, {
-      headers: {
-        Accept: "text/event-stream",
-      },
-      responseType: "text",
-      adapter: "xhr",
-      signal: abortController.signal,
-      onDownloadProgress: ({ event }) => {
-        const xhr = event.target as XMLHttpRequest;
-        const newText = xhr.responseText.substring(offset);
-        
-        offset = xhr.responseText.length;
-        parser.feed(newText);
-      },
-    });
+    const isBrowser =
+      typeof window !== "undefined" && typeof window.document !== "undefined";
+
+    if (isBrowser) {
+      let offset = 0;
+
+      // Fire-and-forget: XHR won't resolve until the response ends
+      axiosInstance
+        .get(url, {
+          headers: { Accept: "text/event-stream" },
+          responseType: "text",
+          adapter: "xhr",
+          signal: abortController.signal,
+          onDownloadProgress: ({ event }) => {
+            const xhr = event.target as XMLHttpRequest;
+            const newText = xhr.responseText.substring(offset);
+
+            offset = xhr.responseText.length;
+            parser.feed(newText);
+          },
+        })
+        .catch(() => {
+          // Ignore abort errors from close().
+        });
+    } else {
+      const { data: stream } = await axiosInstance.get(url, {
+        headers: { Accept: "text/event-stream" },
+        responseType: "stream",
+        signal: abortController.signal,
+      });
+
+      stream.on("data", (chunk: any) => {
+        parser.feed(String(chunk));
+      });
+    }
 
     return this;
   }
