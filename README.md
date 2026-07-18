@@ -1,8 +1,8 @@
 # Secios
 
-A lightweight Server-Sent Events (SSE) client for Node.js, powered by [Axios](https://axios-http.com/) and [eventsource-parser](https://github.com/rexxars/eventsource-parser).
+A lightweight Server-Sent Events (SSE) client, powered by [Axios](https://axios-http.com/) and [eventsource-parser](https://github.com/rexxars/eventsource-parser).
 
-Secios lets you consume SSE streams using the Axios instance you already have — complete with your base URLs, headers, interceptors, and auth. No separate HTTP client needed.
+Secios lets you consume SSE streams using the Axios instance that you already have — complete with your base URLs, headers, interceptors, and auth. No separate HTTP client is needed.
 
 ## Features
 

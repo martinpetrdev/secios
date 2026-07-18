@@ -1,7 +1,12 @@
 {
   "name": "secios",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
+  "repository": {
+    "url": "https://github.com/martinpetrdev/secios",
+    "type": "git"
+  },
+  "license": "MIT",
   "exports": {
     ".": {
       "import": {
@@ -27,7 +32,6 @@
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@types/node": "latest",
     "esbuild": "latest"
   },
   "peerDependencies": {

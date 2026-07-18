@@ -18,9 +18,6 @@ importers:
         specifier: ^5
         version: 5.9.3
     devDependencies:
-      '@types/node':
-        specifier: latest
-        version: 26.1.1
       esbuild:
         specifier: latest
         version: 0.28.1
@@ -183,9 +180,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@types/node@26.1.1':
-    resolution: {integrity: sha512-nxAkRSVkN1Y0JC1W8ky/fTfkGsMmcrRsbx+3XoZE+rMOX71kLYTV7fLXpqud1GpbpP5TuffXFqfX7fH2GgZREw==}
-
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
@@ -314,9 +308,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@8.3.0:
-    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
-
 snapshots:
 
   '@esbuild/aix-ppc64@0.28.1':
@@ -396,10 +387,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.1':
     optional: true
-
-  '@types/node@26.1.1':
-    dependencies:
-      undici-types: 8.3.0
 
   agent-base@6.0.2:
     dependencies:
@@ -548,5 +535,3 @@ snapshots:
   proxy-from-env@2.1.0: {}
 
   typescript@5.9.3: {}
-
-  undici-types@8.3.0: {}

@@ -1,7 +1,5 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import { createParser } from "eventsource-parser";
-import type { SeciosEvent } from "../types";
 import { SeciosConnection } from "./SeciosConnection";
 
 export class SeciosInstance {
