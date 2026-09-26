@@ -1,6 +1,6 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import { SeciosConnection } from "./SeciosConnection";
+import { SeciosConnection } from "./SeciosConnection.js";
 
 export class SeciosInstance {
   private readonly _axios: AxiosInstance;

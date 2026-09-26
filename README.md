@@ -115,9 +115,21 @@ conn.on("message", handler);
 conn.off("message", handler);
 ```
 
+#### `conn.onError(callback): () => void`
+
+Subscribe to connection errors (network failures, HTTP errors, dropped streams). Returns an unsubscribe function.
+
+```ts
+conn.onError((error) => console.error(error));
+```
+
+#### Reconnection
+
+When the stream ends or fails, Secios reconnects automatically after the server-provided `retry` delay (default 3000 ms), sending `Last-Event-ID`. Like `EventSource`, 4xx responses stop reconnection. A failure of the initial `connect()` rejects the promise instead.
+
 #### `conn.close(): void`
 
-Closes the connection by cancelling the underlying Axios request.
+Closes the connection by cancelling the underlying Axios request and stops reconnecting.
 
 ```ts
 conn.close();

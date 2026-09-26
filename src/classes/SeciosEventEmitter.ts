@@ -1,4 +1,4 @@
-import type { SeciosEvent } from "../types";
+import type { SeciosEvent } from "../types.js";
 
 export class SeciosEventEmitter {
   private readonly _listeners: Map<
