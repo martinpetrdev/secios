@@ -23,10 +23,9 @@ export class SeciosConnection extends SeciosEventEmitter {
       },
     });
 
-    const isBrowser =
-      typeof window !== "undefined" && typeof window.document !== "undefined";
+    const isNode = !!(globalThis as any).process?.versions?.node;
 
-    if (isBrowser) {
+    if (!isNode) {
       let offset = 0;
 
       // Fire-and-forget: XHR won't resolve until the response ends
