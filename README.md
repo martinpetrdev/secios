@@ -105,6 +105,19 @@ conn.once("message", (event) => {
 });
 ```
 
+#### `conn.onAny(callback): () => void`
+
+Subscribe to every event, whatever its name. The callback receives the event name and the event. Events without an `event:` field arrive as `"event"`. Returns an unsubscribe function.
+
+```ts
+const off = conn.onAny((eventId, event) => {
+  console.log(eventId, event.data);
+});
+
+// Later - unsubscribe:
+off();
+```
+
 #### `conn.off(event, callback): void`
 
 Remove a specific listener by reference.

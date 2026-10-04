@@ -5,15 +5,18 @@ export class SeciosEventEmitter {
     string,
     Set<{ callback: (event: SeciosEvent) => void; once: boolean }>
   > = new Map();
+  private readonly _anyListeners: Set<(eventId: string, event: SeciosEvent) => void> = new Set();
 
   protected emit(event: string, data: SeciosEvent): void {
-    if (!this._listeners.has(event)) return;
-
-    const listeners = this._listeners.get(event)!;
-    for (const listener of listeners) {
+    const listeners = this._listeners.get(event);
+    for (const listener of listeners ?? []) {
       listener.callback(data);
 
-      if (listener.once) listeners.delete(listener);
+      if (listener.once) listeners!.delete(listener);
+    }
+
+    for (const listener of this._anyListeners) {
+      listener(event, data);
     }
   }
 
@@ -26,6 +29,14 @@ export class SeciosEventEmitter {
     return () => {
       this._listeners.get(event)!.delete(listener);
     };
+  }
+
+  public onAny(callback: (eventId: string, event: SeciosEvent) => void): () => void {
+    this._anyListeners.add(callback);
+
+    return () => {
+      this._anyListeners.delete(callback);
+    }
   }
 
   public once(
